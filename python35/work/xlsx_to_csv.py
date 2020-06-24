@@ -37,7 +37,7 @@ def csv_to_txt(xlsx_f, csv_f, txt_f, csv_code='utf8', txt_code='txt'):
             f.write(u'\t'.join(res_l[0:3]) + u'\n')
 
 
-def csv_to_txt2(xlsx_f, csv_f, txt_f, csv_code='utf8', txt_code='utf8'):
+def csv_to_txt2(xlsx_f, csv_f, txt_f, csv_code='utf8', txt_code='GB18030'):
     xlsx_to_csv(xlsx_f, csv_f, csv_code)
     with codecs.open(txt_f, 'w', encoding=txt_code) as f:
         for line in codecs.open(csv_f, encoding=csv_code):
@@ -45,16 +45,26 @@ def csv_to_txt2(xlsx_f, csv_f, txt_f, csv_code='utf8', txt_code='utf8'):
             if not line:
                 continue
             row_l = line.split(',')
-            if len(row_l) != 4:
+            if len(row_l) != 5:
                 print(row_l)
                 continue
-
-            res_l = [row_l[1], row_l[2], row_l[0]]
-            f.write('$'.join(res_l) + '\n')
+            f.write('\t'.join(row_l) + '\n')
 
 
 if __name__ == '__main__':
-    f_xlsx = 'data/book20200529.xlsx'
-    f_csv = 'data/book20200529.csv'
-    f_txt = 'data/book20200529.txt'
+    '''
+    f_xlsx = 'new_cp/longyuedu.xlsx'
+    f_csv = 'new_cp/longyuedu.csv'
+    f_txt = 'new_cp/longyuedu.txt'
     csv_to_txt2(f_xlsx, f_csv, f_txt)
+    '''
+    cpname_list = [
+        'huanwenshiji', 'lanyuezhongwen', 'longyuedu', 'luochenwenxue',
+        'qichuangzhongwen', 'taoxiaoshuo', 'tianjindianyue', 'tianjinlixing'
+    ]
+    for cpname in cpname_list:
+        print(cpname)
+        f_xlsx = 'new_cp/%s.xlsx' % cpname
+        f_csv = 'new_cp/%s.csv' % cpname
+        f_txt = 'new_cp/%s.txt' % cpname
+        csv_to_txt2(f_xlsx, f_csv, f_txt)
