@@ -34,7 +34,28 @@ print(a.send(None))
 print(a.send('abc'))
 
 
-import requests
-url = 'https://m.suixkan.com/ca/30540.html'
-r = requests.get(url)
-print(r.text)
+d1 = {'a': 1, 'b': 0, 'c': -3, 'd': 3}
+print(sorted(d1.items(), key=lambda x: abs(x[1]), reverse=True))
+
+d2 = {1:2, 2:3, 4:3, 3:5, 6:5}
+d_new = {}
+for k, v in d2.items():
+    if v not in d_new:
+        d_new[v] = []
+    d_new[v].append(k)
+print(d_new)
+res, stk = [], [3]
+while stk:
+    up = stk.pop()
+    lowers = d_new.get(up,[])
+    for low in lowers:
+        stk.append(low)
+        res.append(low)
+print(res)
+
+
+
+
+
+
+
