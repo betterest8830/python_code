@@ -14,7 +14,15 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+import blog.views as bv
 
+
+# 配置url
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    # 上面注释第一种：参数：URL正则、对应方法、名称
+    url(r'^index/$', bv.index),
+    # 上面注释最后一种
+    #url(r'^blog/', include('blog.urls')),  # 总路径，app url 在其后面
+    url(r'^blog/', include('blog.urls',  namespace='blog')),
 ]

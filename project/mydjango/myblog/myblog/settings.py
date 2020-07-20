@@ -24,9 +24,10 @@ SECRET_KEY = '2i6o&&ca@pbt7jokgz-$0b6rneym5%8w=dmbaisa*p*xp+l8!%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# DEBUG = False
 
 ALLOWED_HOSTS = []
-
+# ALLOWED_HOSTS = ['localhost']
 
 # Application definition
 
@@ -37,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'blog',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -85,7 +87,10 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'zh-Hant'  # 繁体字
+LANGUAGE_CODE = 'zh-Hans'  # 后台变成中文
+
 
 TIME_ZONE = 'UTC'
 
