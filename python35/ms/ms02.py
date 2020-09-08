@@ -1,11 +1,4 @@
-# coding
-
-def my_counter(s):
-    if not s: return
-    d = {}
-    for ch in s:
-        d[ch] = d.get(ch, 0) + 1
-    return d
+# coding=utf8
 
 import time
 
@@ -14,6 +7,7 @@ def log_time(throw_error):
     def decorater(func):
         def wrapper(*args, **kwargs):
             start = time.time()
+            time.sleep(1)
             try:
                 return func(*args, **kwargs)
             except Exception as e:
@@ -23,17 +17,13 @@ def log_time(throw_error):
                 print('run_time %s' % (time.time() - start))
         return wrapper
     return decorater
-
-
 @log_time(throw_error=True)
 def test(a, b):
     return a / b
 
+print(test(10, 3))
+#test(10, b=0)
 
-# test(10, 3)
-test(10, b=0)
-
-import grequests
 
 
 

@@ -15,6 +15,7 @@ import threading
 import logging
 logging.basicConfig(level=logging.INFO, format='[%(asctime)s] %(levelname)-8s %(message)s')
 
+
 user_agent = 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.04'
 headers = {'User-Agent': user_agent, 'x-requested-with': 'XMLHttpRequest'}
 my_header = {'x-requested-with': 'XMLHttpRequest',  # 该header不能缺
@@ -43,7 +44,7 @@ def get_shida_url():
     # spider_url = 'https://bbs.byr.cn/'
     spider_url = 'https://bbs.byr.cn/default?_uid=onchanging'
     login_url = 'https://bbs.byr.cn/user/ajax_login.json'
-    data = {'id': 'onchanging', 'passwd': 'xxxx'}
+    data = {'id': 'onchanging', 'passwd': 'per525xucl'}
     session = requests.session()
     # headers的问题还是很重要的
     session.post(login_url, headers=headers, data=data)
@@ -59,8 +60,10 @@ def test():
     session, url_l = get_shida_url()
     threads_l = []
     for url in url_l:
+        print(url)
         t = threading.Thread(target=spider_url_content, args=(session, url))
         threads_l.append(t)
+        break
 
     for t in threads_l:
         t.start()

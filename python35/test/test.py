@@ -1,61 +1,37 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+# coding=utf8
 
 
-s = {1, 3, 4}
-print(type(s))
+import datetime
+import time
 
-print(globals())
-print(dir(globals()['__builtins__']))
+'''
 
-print(bin(5))
+s = 'Tue Aug 25 18:10:36 2020'
+s = time.strptime(s, "%a %b %d %H:%M:%S %Y")
+print(s)
+print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 
-print(any('00'))  # True
-print(any([0, 0]))  # False
+import hashlib
 
-t = (1, 2, 3)
-print(t)
-print(*t)
-
-
-foo = [-5, 8, 0, 4, -2]
-a = sorted(foo, key=lambda x: (x < 0, abs(x)))
-print(type(a), a)
+def curlmd5(src):
+    m = hashlib.md5()
+    m.update(src.encode('UTF-8'))
+    return m.hexdigest()
+print(curlmd5('333'))
 
 
-def my_func(total):
-    for i in range(total):
-        r = yield i
-        print(r)
+'''
+import sys, os, time, datetime, shutil
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.text import MIMENonMultipart
 
+print(0/float('inf'))
+print(0/float('-inf'))
+print(0/float('inf') == 0/float('-inf'))
 
-a = my_func(3)
-print(a.send(None))
-print(a.send('abc'))
+x = {"apple", "banana", "cherry"}
+y = [1,2,3]
 
-
-d1 = {'a': 1, 'b': 0, 'c': -3, 'd': 3}
-print(sorted(d1.items(), key=lambda x: abs(x[1]), reverse=True))
-
-d2 = {1:2, 2:3, 4:3, 3:5, 6:5}
-d_new = {}
-for k, v in d2.items():
-    if v not in d_new:
-        d_new[v] = []
-    d_new[v].append(k)
-print(d_new)
-res, stk = [], [3]
-while stk:
-    up = stk.pop()
-    lowers = d_new.get(up,[])
-    for low in lowers:
-        stk.append(low)
-        res.append(low)
-print(res)
-
-
-
-
-
-
-
+x.update(y)
+print(x)

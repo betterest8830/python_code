@@ -1,23 +1,4 @@
-# coding=utf
-
-
-class ListNode(object):
-    def __init__(self, n , v):
-        self.next = n
-        self.val = v
-
-def is_cycle_list(head):
-    if not head: return False
-    start = slow = fast = head
-    while fast.next and fast.next.next:
-        slow = slow.next
-        fast = fast.next.next
-        if slow == fast:
-            while start != slow:
-                start = start.next
-                slow = slow.next
-            return start
-    return False
+# coding=utf8
 
 
 def find_num(nums, target):
@@ -39,25 +20,35 @@ def find_num(nums, target):
     return -1
 
 
-def find_Kth(a, b, k):
+def find_small_kth(a, b, k):
     if not a: return b[k]
     if not b: return a[k]
     ia, ib = len(a) // 2, len(b) // 2
     va, vb = a[ia], b[ib]
     if ia + ib < k:
         if va < vb:
-            find_Kth(a[ia+1:], b, k - (ia+1))
+            find_small_kth(a[ia+1:], b, k - (ia+1))
         else:
-            find_Kth(a, b[ib+1:], k - (ib + 1))
+            find_small_kth(a, b[ib+1:], k - (ib + 1))
     else:
         if va < vb:
-            find_Kth(a, b[:ib], k)
+            find_small_kth(a, b[:ib], k)
         else:
-            find_Kth(a[:ia], b, k)
-
+            find_small_kth(a[:ia], b, k)
 def get_middle(nums1, nums2):
     length = len(nums1) + len(nums2)
     if length % 2:
-        return find_Kth(nums1, nums2, length // 2)
+        return find_small_kth(nums1, nums2, length // 2)
     else:
-        return (find_Kth(nums1, nums2, length // 2) + find_Kth(nums1, nums2, (length-1) // 2)) / 2
+        return (find_small_kth(nums1, nums2, length // 2) + find_small_kth(nums1, nums2, (length-1) // 2)) / 2
+
+
+def min_jump(nums):
+    step = 0
+    cur_end, max_end = 0, 0
+    for i, num in enumerate(nums):
+        if i == cur_end + 1:
+            cur_end = max_end
+            step += 1
+        max_end = max(max_end, i + num)
+    return step
