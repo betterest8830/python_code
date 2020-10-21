@@ -1,6 +1,13 @@
 # coding=utf8
 
 
+'''
+# 1、统计无序数组各元素出现的次数
+
+
+'''
+
+
 # 1、统计无序数组各元素出现的次数
 def test01():
     def count_arr(nums, n):

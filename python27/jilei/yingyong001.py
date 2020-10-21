@@ -8,7 +8,14 @@ import HTMLParser
 import cgi
 
 
-# =========================1、全角转化为半角=========================
+'''
+# 1、全角转化为半角
+# 2、时间转换
+# 3、表格转换为文本
+# 4、html转码问题
+'''
+
+# 1、全角转化为半角
 def quan_to_ban(ustring):
     """全角转半角"""
     rstring = ''
@@ -20,29 +27,23 @@ def quan_to_ban(ustring):
             inside_code -= 65248
         rstring += unichr(inside_code)
     return rstring
-
-
-def test_quan_to_ban():
+def test_01():
     b = quan_to_ban(u'１７３３２３２４１８７６６５５０６６６０')
     print b.encode('utf8')
 
 
-# =========================2、时间转换=========================
+# 2、时间转换
 # 时间戳转化为字符串
 def timestamp_to_format(timestamp):
     struct_time = time.gmtime(timestamp)
     format_time = time.strftime("%Y-%m-%d %X", struct_time)
     return format_time
-
-
 # 字符串转化为时间戳
 def format_to_timestamp(format_time):
     struct_time = time.strptime(format_time, "%Y-%m-%d %X")
     timestamp = time.mktime(struct_time)
     return timestamp
-
-
-def test_time_transform():
+def test_02():
     print 'timestamp:', time.time()
     print 'struct_time:', time.localtime(time.time())
     format_time = timestamp_to_format(time.time())
@@ -51,13 +52,11 @@ def test_time_transform():
     print 'timestamp:', timestamp
 
 
-# =========================3、表格转换为文本=========================
+# 3、表格转换为文本
 def xlsx_to_csv(xlsx_f, csv_f, csv_code='utf8'):
     # 指定第一列为索引列，不然默认增加一列数字
     xlsx_data = pd.read_excel(xlsx_f, index_col=0)
     xlsx_data.to_csv(csv_f, encoding=csv_code)
-
-
 def csv_to_txt(xlsx_f, csv_f, txt_f, csv_code='utf8', txt_code='utf8'):
     xlsx_to_csv(xlsx_f, csv_f, csv_code)
     with codecs.open(txt_f, 'w', encoding=txt_code) as f:
@@ -72,16 +71,14 @@ def csv_to_txt(xlsx_f, csv_f, txt_f, csv_code='utf8', txt_code='utf8'):
             book_id, title, author = row_l[0], row_l[1], row_l[2]
             tmp = u'\t'.join([book_id, title, author]) + u'\n'
             f.write(tmp)
-
-
-def test_xlsx_to_txt():
+def test_03():
     f_xlsx = 'data/suixinkan0426.xlsx'
     f_csv = 'data/suixinkan0426.csv'
     f_txt = 'data/suixinkan0426.txt'
     csv_to_txt(f_xlsx, f_csv, f_txt)
 
 
-# =========================4、html转码问题=========================
+# 4、html转码问题
 def html_escape():
     # html转码问题
     html_str = '&lt;abc&gt;'
@@ -92,14 +89,7 @@ def html_escape():
     print(html_str)  # 这样又回到了 html_str = '&lt;abc&gt'
 
 
-# 1、全角转化为半角
-test_quan_to_ban()
-
-# 2、时间转换
-test_time_transform()
-
-# 3、表格转换为文本
-# test_xlsx_to_txt()
-
-# 4、html转码问题
+test_01()
+test_02()
+test_03()
 html_escape()

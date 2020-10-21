@@ -2,6 +2,14 @@
 # -*- coding: utf-8 -*-
 
 
+'''
+# 1、写出把str转换为int的函数：
+# 2、计算素数的一个方法是埃氏筛法
+# 3、单例模式
+# 4、编写汉诺塔模型
+'''
+
+
 # 1、写出把str转换为int的函数：
 from functools import reduce
 def test_01():

@@ -1,37 +1,48 @@
 # coding=utf8
 
-
+import codecs
 import datetime
 import time
+import functools
+import hashlib
 
-'''
+# 1、python 中的open函数
+# Python3直接用open。Python2.x下用codecs.open, 读取的都是字符串类型
+# python2 的open,读取的是str类型
+def read1():
+    input_file = 'data/input1.txt'
+    with open(input_file, 'r', encoding='utf8') as f:
+        for line in f.readlines():
+            print(type(line), line)
+            line = line.encode('utf8')
+            print(type(line), line)
+#read1()
+def read2():
+    input_file = 'data/input1.txt'
+    with open(input_file, 'r', encoding='utf8') as f:
+        line = f.readline()
+        while line:
+            print(line)
+            line = f.readline()
+#read2()
 
+
+# 2、python 如何替代python2 中的cmp
+b = ['1', '5', '21', '4']
+cmp=lambda x, y: -1 if x+y < y+x else 1
+print(sorted(b, key=functools.cmp_to_key(cmp)))
+
+
+# 3、时间转换
 s = 'Tue Aug 25 18:10:36 2020'
 s = time.strptime(s, "%a %b %d %H:%M:%S %Y")
 print(s)
 print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 
-import hashlib
 
+# 4、md5算法
 def curlmd5(src):
     m = hashlib.md5()
     m.update(src.encode('UTF-8'))
     return m.hexdigest()
-print(curlmd5('333'))
-
-
-'''
-import sys, os, time, datetime, shutil
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.text import MIMENonMultipart
-
-print(0/float('inf'))
-print(0/float('-inf'))
-print(0/float('inf') == 0/float('-inf'))
-
-x = {"apple", "banana", "cherry"}
-y = [1,2,3]
-
-x.update(y)
-print(x)
+print(curlmd5('sogounovel'))
