@@ -46,3 +46,9 @@ def curlmd5(src):
     m.update(src.encode('UTF-8'))
     return m.hexdigest()
 print(curlmd5('sogounovel'))
+
+
+t = tuple('123')
+print(t)
+print(int(12.34))
+print(int(-12.34))

@@ -1,54 +1,59 @@
 # coding=utf8
 
 
-def find_num(nums, target):
-    low, high = 0, len(nums) - 1
-    while low <= high:
-        mid = low + (high-low) // 2
-        if nums[mid] == target:
-            return mid
-        if nums[mid] <= nums[high]:
-            if nums[mid] < target <= nums[high]:
-                low = mid + 1
-            else:
-                high = mid - 1
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left = None
+        self.right = None
+
+def gen_tree():
+    a, b, c, d, e, f, g = TreeNode(1), TreeNode(2), TreeNode(3), TreeNode(4), TreeNode(5), TreeNode(6), TreeNode(7)
+    a.left = b
+    a.right = c
+    b.left = d
+    b.right = e
+    c.left = f
+    c.right = g
+    return a
+
+
+# 144. 二叉树的前序遍历
+def preorder_traverse(root):
+    if not root: return
+    res, stk, cur = [], [], root
+    while stk or cur:
+        if cur:
+            stk.append(cur)
+            res.append(cur.val)
+            cur = cur.left
         else:
-            if nums[low] <= target < nums[mid]:
-                high = mid - 1
-            else:
-                low = mid + 1
-    return -1
+            cur = stk.pop()
+            cur = cur.right
+    return res
 
 
-def find_small_kth(a, b, k):
-    if not a: return b[k]
-    if not b: return a[k]
-    ia, ib = len(a) // 2, len(b) // 2
-    va, vb = a[ia], b[ib]
-    if ia + ib < k:
-        if va < vb:
-            find_small_kth(a[ia+1:], b, k - (ia+1))
-        else:
-            find_small_kth(a, b[ib+1:], k - (ib + 1))
-    else:
-        if va < vb:
-            find_small_kth(a, b[:ib], k)
-        else:
-            find_small_kth(a[:ia], b, k)
-def get_middle(nums1, nums2):
-    length = len(nums1) + len(nums2)
-    if length % 2:
-        return find_small_kth(nums1, nums2, length // 2)
-    else:
-        return (find_small_kth(nums1, nums2, length // 2) + find_small_kth(nums1, nums2, (length-1) // 2)) / 2
+# 102. 二叉树的层序遍历
+def level_tarverse(root):
+    if not root: return []
+    level, res, tmp = [root], [], []
+    while level:
+        res += [node.val for node in level][::-1]
+        for node in level:
+            if node.left: tmp.append(node.left)
+            if node.right: tmp.append(node.right)
+        level, tmp = tmp, []
+    return res
 
 
-def min_jump(nums):
-    step = 0
-    cur_end, max_end = 0, 0
-    for i, num in enumerate(nums):
-        if i == cur_end + 1:
-            cur_end = max_end
-            step += 1
-        max_end = max(max_end, i + num)
-    return step
+# 101. 对称二叉树
+def is_symmetrical(root):
+    def is_sym(p, q):
+        if p and q:
+            return p.val == q.val and is_sym(p.left, q.right) and is_sym(p.right, q.left)
+        return p == q
+    if not root: return False
+    return is_sym(root.left, root.right)
+
+
+
